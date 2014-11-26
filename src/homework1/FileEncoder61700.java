@@ -44,7 +44,7 @@ public class FileEncoder61700 implements FileEncoderFN {
 				outputByteContent[i] = inputByteContent[i];
 			} else {
 				outputByteContent[i] = (byte) ((char) myKey
-						.get(inputByteContent[i]) + 128);
+						.get(inputByteContent[i]+ 128));
 			}
 		}
 
@@ -88,8 +88,7 @@ public class FileEncoder61700 implements FileEncoderFN {
 				outputByteContent[i] = inputByteContent[i];
 			} else {
 				// кастни си...
-				outputByteContent[i] = myKey.get(Character
-						.valueOf((char) (inputByteContent[i] + 128)));
+				outputByteContent[i] = myKey.get(Character.valueOf((char) (inputByteContent[i] + 128)));
 			}
 		}
 
