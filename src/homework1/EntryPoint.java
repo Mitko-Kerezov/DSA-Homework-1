@@ -1,6 +1,5 @@
 package homework1;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import homework1.FileEncoder61700;
@@ -19,24 +18,24 @@ public class EntryPoint {
 		fenc.decode("C:\\Users\\Dimitar\\Desktop\\out1.enc", "C:\\Users\\Dimitar\\Desktop\\in1Dec.jpg", key);
 		time = System.currentTimeMillis() - time;
 		System.out.println(time + " miliseconds");
-		
-//		time = System.currentTimeMillis();
-//		fenc.encode("C:\\Users\\Dimitar\\Desktop\\fixlist.txt", "C:\\Users\\Dimitar\\Desktop\\fixlistEnc", key);
-//		fenc.decode("C:\\Users\\Dimitar\\Desktop\\fixlistEnc", "C:\\Users\\Dimitar\\Desktop\\fixlistDec.txt", key);
-//		time = System.currentTimeMillis() - time;
-//		System.out.println(time + " miliseconds");
-//		
-//		time = System.currentTimeMillis();
-//		fenc.encode("C:\\Users\\Dimitar\\Desktop\\Repo.txt", "C:\\Users\\Dimitar\\Desktop\\RepoEnc", key);
-//		fenc.decode("C:\\Users\\Dimitar\\Desktop\\RepoEnc", "C:\\Users\\Dimitar\\Desktop\\RepoDec.txt", key);
-//		time = System.currentTimeMillis() - time;
-//		System.out.println(time + " miliseconds");
-//		
-//		time = System.currentTimeMillis();
-//		fenc.encode("C:\\Users\\Dimitar\\Desktop\\LARGEFILE.txt", "C:\\Users\\Dimitar\\Desktop\\LARGEFILEENC", key);
-//		fenc.decode("C:\\Users\\Dimitar\\Desktop\\LARGEFILEENC", "C:\\Users\\Dimitar\\Desktop\\LARGEFILEDEC.txt", key);
-//		time = System.currentTimeMillis() - time;
-//		System.out.println(time + " miliseconds");
+
+		time = System.currentTimeMillis();
+		fenc.encode("C:\\Users\\Dimitar\\Desktop\\fixlist.txt", "C:\\Users\\Dimitar\\Desktop\\fixlistEnc", key);
+		fenc.decode("C:\\Users\\Dimitar\\Desktop\\fixlistEnc", "C:\\Users\\Dimitar\\Desktop\\fixlistDec.txt", key);
+		time = System.currentTimeMillis() - time;
+		System.out.println(time + " miliseconds");
+
+		time = System.currentTimeMillis();
+		fenc.encode("C:\\Users\\Dimitar\\Desktop\\Repo.txt", "C:\\Users\\Dimitar\\Desktop\\RepoEnc", key);
+		fenc.decode("C:\\Users\\Dimitar\\Desktop\\RepoEnc", "C:\\Users\\Dimitar\\Desktop\\RepoDec.txt", key);
+		time = System.currentTimeMillis() - time;
+		System.out.println(time + " miliseconds");
+
+		time = System.currentTimeMillis();
+		fenc.encode("C:\\Users\\Dimitar\\Desktop\\LARGEFILE.txt", "C:\\Users\\Dimitar\\Desktop\\LARGEFILEENC", key);
+		fenc.decode("C:\\Users\\Dimitar\\Desktop\\LARGEFILEENC", "C:\\Users\\Dimitar\\Desktop\\LARGEFILEDEC.txt", key);
+		time = System.currentTimeMillis() - time;
+		System.out.println(time + " miliseconds");
 		
 		
 		

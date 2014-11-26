@@ -3,8 +3,8 @@ package homework1;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -27,33 +27,23 @@ public class FileEncoder61700 implements FileEncoderFN {
 			return;
 		}
 
-		// the input file in byte[] so I can close the reader
-		byte[] inputByteContent = null;
-		try (FileInputStream inputFileStream = new FileInputStream(inputFile)) {
-			inputByteContent = new byte[inputFileStream.available()];
-			inputFileStream.read(inputByteContent);
-			inputFileStream.close();
-		} catch (Exception e) {
-			System.err.println("An exception occured while reading :(");
-		}
-
-		// the output file in byte[] so I can write the whole of it at once
-		byte[] outputByteContent = new byte[inputByteContent.length];
-		for (int i = 0; i < inputByteContent.length; ++i) {
-			if (isPrime(i)) {
-				outputByteContent[i] = inputByteContent[i];
-			} else {
-				outputByteContent[i] = (byte) ((char) myKey
-						.get(inputByteContent[i]+ 128));
+		try {
+			FileInputStream inputFileStream = new FileInputStream(sourceFile);
+			FileOutputStream outputFileStream = new FileOutputStream(
+					destinationFile);
+			// would really prefer this not to be a loop
+			// but to read and write the whole thing as a batch
+			for (int i = 0, currentCharacter = inputFileStream.read(); currentCharacter != -1; ++i, currentCharacter = inputFileStream.read()) {
+				if (isPrime(i)) {
+					outputFileStream.write(currentCharacter);
+				} else {
+					outputFileStream.write(myKey.get(currentCharacter));
+				}
 			}
-		}
-
-		try (FileOutputStream outputFileStream = new FileOutputStream(
-				destinationFile)) {
-			outputFileStream.write(outputByteContent);
+			inputFileStream.close();
 			outputFileStream.close();
-		} catch (Exception ex) {
-			System.err.println("An exception occured while writing :(");
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -61,40 +51,27 @@ public class FileEncoder61700 implements FileEncoderFN {
 	public void decode(String encodedFile, String destinationFile,
 			LinkedList<Character> key) {
 		// for faster search
-		HashMap<Character, Byte> myKey = new HashMap<Character, Byte>();
+		Character[] myKey = new Character[256]; // 256 - the key's length
 		Iterator<Character> it = key.listIterator();
-		for (byte index = 0; it.hasNext(); index++) {
-			myKey.put(it.next(), index);
+		for (int index = 0; it.hasNext(); index++) {
+			char currentChar = it.next();
+			myKey[index] = currentChar;
 		}
 
-		File inputFile = new File(encodedFile);
-		if (!inputFile.exists() || inputFile.isDirectory()) {
-			System.out.println("File does not exist or is directory");
-			return;
-		}
-		// the input file in byte[] so I can close the reader
-		byte[] inputByteContent = null;
-		try (FileInputStream inputFileStream = new FileInputStream(inputFile)) {
-			inputByteContent = new byte[inputFileStream.available()];
-			inputFileStream.read(inputByteContent);
-			inputFileStream.close();
-		} catch (Exception e) {
-			System.err.println("An exception occured while reading :(");
-		}
-		// the output file in byte[] so I can write the whole of it at once
-		byte[] outputByteContent = new byte[inputByteContent.length];
-		for (int i = 0; i < inputByteContent.length; ++i) {
-			if (isPrime(i)) {
-				outputByteContent[i] = inputByteContent[i];
-			} else {
-				// кастни си...
-				outputByteContent[i] = myKey.get(Character.valueOf((char) (inputByteContent[i] + 128)));
+		try {
+			FileInputStream inputFileStream = new FileInputStream(encodedFile);
+			FileOutputStream outputFileStream = new FileOutputStream(
+					destinationFile);
+			// would really prefer this not to be a loop
+			// but to read and write the whole thing as a batch
+			for (int i = 0, currentCharacter = inputFileStream.read(); currentCharacter != -1; ++i, currentCharacter = inputFileStream.read()) {
+				if (isPrime(i)) {
+					outputFileStream.write(currentCharacter);
+				} else {
+					outputFileStream.write(myKey[currentCharacter]);
+				}
 			}
-		}
-
-		try (FileOutputStream outputFileStream = new FileOutputStream(
-				destinationFile)) {
-			outputFileStream.write(outputByteContent);
+			inputFileStream.close();
 			outputFileStream.close();
 		} catch (Exception ex) {
 			System.err.println("An exception occured while writing :(");
